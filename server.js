@@ -27,13 +27,20 @@ const upload = multer({
 
 // ─── S3 Client ───────────────────────────────────────────────
 const s3 = new S3Client({
-  region: process.env.AWS_REGION || 'ap-southeast-1',
-  credentials: {
-    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-    sessionToken: process.env.AWS_SESSION_TOKEN,
-  }
+  region: process.env.AWS_REGION,
+  // Tidak perlu credentials — otomatis pakai IAM Role dari EC2 instance metadata
 });
+
+// ─── Ini kalau mau pakai session / token
+// const s3 = new S3Client({
+//   region: process.env.AWS_REGION || 'ap-southeast-1',
+//   credentials: {
+//     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+//     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+//     sessionToken: process.env.AWS_SESSION_TOKEN,
+//   }
+// });
+
 
 // ─── MySQL Pool (tanpa database dulu, untuk bisa CREATE DATABASE) ────────────
 const poolNoDB = mysql.createPool({
