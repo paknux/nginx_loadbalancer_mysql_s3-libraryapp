@@ -199,7 +199,11 @@ Untuk deploy otomatis di EC2, tambahkan ke User Data:
 
 ```bash
 #!/bin/bash
+
 apt-get update -y
+
+hostnamectl set-hostname YOUR_HOSTNAME
+
 apt-get install -y nodejs npm git
 
 git clone https://github.com/paknux/nginx_loadbalancer_mysql_s3-libraryapp.git /app
